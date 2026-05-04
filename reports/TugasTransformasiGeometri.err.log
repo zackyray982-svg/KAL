@@ -1,0 +1,127 @@
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/nbclient/client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/base_events.py", line 684, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/nbclient/client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+from IPython.display import HTML
+
+# =========================
+# OBJEK (SEKARANG DI KUADRAN II)
+# =========================
+objek = np.array([
+  [-7, 2],
+  [-4, 2],
+  [-4, 4],
+  [-7, 4],
+  [-7, 2]
+])
+
+# =========================
+# TRANSFORMASI
+# =========================
+
+# refleksi sumbu-Y
+R = np.array([
+  [-1, 0],
+  [0, 1]
+])
+
+# translasi homogen
+def T(tx, ty):
+  return np.array([
+    [1, 0, tx],
+    [0, 1, ty],
+    [0, 0, 1]
+  ])
+
+def ke_homogen(obj):
+  return np.hstack((obj, np.ones((obj.shape[0],1))))
+
+def ke_cartesian(obj):
+  return obj[:, :2]
+
+# =========================
+# PLOT
+# =========================
+fig, ax = plt.subplots()
+
+def update(frame):
+  ax.clear()
+
+  ax.set_xlim(-12, 12)
+  ax.set_ylim(-6, 8)
+  ax.set_aspect('equal')
+
+  # sumbu
+  ax.axhline(0, color='black')
+  ax.axvline(0, color='black')
+
+  # grid
+  ax.set_xticks(np.arange(-12, 13, 2))
+  ax.set_yticks(np.arange(-6, 9, 2))
+  ax.grid(True)
+
+  ax.set_xticks(np.arange(-12, 12, 0.5), minor=True)
+  ax.set_yticks(np.arange(-6, 8, 0.5), minor=True)
+  ax.grid(which='minor', linestyle=':', linewidth=0.5)
+
+  # =========================
+  # GERAK
+  # =========================
+  t = frame * 0.5
+
+  obj_h = ke_homogen(objek)
+
+  # objek utama (kiri → ke kanan)
+  kiri = (T(t, 0) @ obj_h.T).T
+  kiri = ke_cartesian(kiri)
+
+  # refleksi awal (jadi di kanan / kuadran I)
+  kanan_awal = (R @ objek.T).T
+  kanan_h = ke_homogen(kanan_awal)
+
+  # refleksi bergerak ke kiri
+  kanan = (T(-t, 0) @ kanan_h.T).T
+  kanan = ke_cartesian(kanan)
+
+  # gambar
+  ax.plot(kiri[:,0], kiri[:,1], 'b-', linewidth=3, label='Objek (Kuadran II)')
+  ax.plot(kanan[:,0], kanan[:,1], 'r--', linewidth=3, label='Refleksi (Kuadran I)')
+
+  ax.legend()
+  ax.set_title(f"Frame {frame}")
+
+# animasi
+anim = FuncAnimation(fig, update, frames=25, interval=200)
+
+HTML(anim.to_jshtml())
+------------------
+
+
+[31m---------------------------------------------------------------------------[39m
+[31mModuleNotFoundError[39m                       Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[1][39m[32m, line 1[39m
+[32m----> [39m[32m1[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mnumpy[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[34;01mnp[39;00m
+[32m      2[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mmatplotlib[39;00m[34;01m.[39;00m[34;01mpyplot[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[34;01mplt[39;00m
+[32m      3[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mmatplotlib[39;00m[34;01m.[39;00m[34;01manimation[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m FuncAnimation
+
+[31mModuleNotFoundError[39m: No module named 'numpy'
+
