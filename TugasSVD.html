@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Singular Value Decomposition (SVD) pada Face Recognition &#8212; Catatan Komputasi Aljabar Linier</title>
+    <title>Implementasi Singular Value Decomposition (SVD) pada Face Recognition &#8212; Catatan Komputasi Aljabar Linier</title>
   
   
   
@@ -179,7 +179,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <li class="toctree-l1"><a class="reference internal" href="Resume_Materi_Sistem_Persamaan_Linier.html">Resume Materi Sistem Persamaan Linier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="TugasGauss.html">Membuat operasi baris elementer 5 variabel dan 5 persamaan (eliminasi gauss)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TugasGauss.html">Membuat operasi baris elementer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="TugasmatriksAdjoin.html">SOAL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tugas3.html">SOAL EVALUASI DETERMINAN DAN INVERS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tugas4.html">Tugas Transformasi Geometri</a></li>
@@ -326,7 +326,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Singular Value Decomposition (SVD) pada Face Recognition</h1>
+    <h1>Implementasi Singular Value Decomposition (SVD) pada Face Recognition</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -337,18 +337,16 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#link-colab">Link Colab:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-svd">1. Rumus SVD</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-data-wajah">2. Matriks Data Wajah</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-face">3. Mean Face</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengurangan-mean-face">4. Pengurangan Mean Face</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-aa-t">5. Menghitung (AA^T)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-dan-singular-value">6. Eigenvalue dan Singular Value</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvector">7. Eigenvector</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduksi-dimensi">8. Reduksi Dimensi</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proyeksi-ke-eigenspace">9. Proyeksi ke Eigenspace</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean-distance">10. Euclidean Distance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ukuran-matriks-svd">11. Ukuran Matriks SVD</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">12. Kesimpulan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konsep-svd">Konsep SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#representasi-data-wajah">Representasi Data Wajah</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-dan-eigenvector">Eigenvalue dan Eigenvector</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#singular-value">Singular Value</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-u">Matriks U</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-sigma">Matriks Sigma (Σ)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-v-t">Matriks (V^T)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduksi-dimensi">Reduksi Dimensi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#face-recognition">Face Recognition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
 </ul>
             </nav>
         </div>
@@ -360,376 +358,239 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="singular-value-decomposition-svd-pada-face-recognition">
-<h1>Singular Value Decomposition (SVD) pada Face Recognition<a class="headerlink" href="#singular-value-decomposition-svd-pada-face-recognition" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="implementasi-singular-value-decomposition-svd-pada-face-recognition">
+<h1>Implementasi Singular Value Decomposition (SVD) pada Face Recognition<a class="headerlink" href="#implementasi-singular-value-decomposition-svd-pada-face-recognition" title="Permalink to this heading">#</a></h1>
 <section id="link-colab">
 <h2>Link Colab:<a class="headerlink" href="#link-colab" title="Permalink to this heading">#</a></h2>
 <p><a class="reference external" href="https://colab.research.google.com/drive/1F6edBN7u0O6ul64smOhxOpYiO0WzTddb?usp=sharing">https://colab.research.google.com/drive/1F6edBN7u0O6ul64smOhxOpYiO0WzTddb?usp=sharing</a></p>
 </section>
-<section id="rumus-svd">
-<h2>1. Rumus SVD<a class="headerlink" href="#rumus-svd" title="Permalink to this heading">#</a></h2>
+<section id="konsep-svd">
+<h2>Konsep SVD<a class="headerlink" href="#konsep-svd" title="Permalink to this heading">#</a></h2>
+<p>SVD digunakan untuk memecah matriks menjadi tiga matriks:</p>
 <div class="math notranslate nohighlight">
 \[
-A = U \Sigma V^T
+A = U\Sigma V^T
 \]</div>
 <p>Keterangan:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(A\)</span> = matriks data</p></li>
-<li><p><span class="math notranslate nohighlight">\(U\)</span> = matriks singular kiri</p></li>
-<li><p><span class="math notranslate nohighlight">\(\Sigma\)</span> = matriks singular value</p></li>
-<li><p><span class="math notranslate nohighlight">\(V^T\)</span> = transpose matriks singular kanan</p></li>
+<li><p><span class="math notranslate nohighlight">\(A\)</span> = matriks data wajah</p></li>
+<li><p><span class="math notranslate nohighlight">\(U\)</span> = singular vector kiri</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Sigma\)</span> = singular value</p></li>
+<li><p><span class="math notranslate nohighlight">\(V^T\)</span> = singular vector kanan</p></li>
 </ul>
-<p>SVD digunakan untuk:</p>
-<ul class="simple">
-<li><p>reduksi dimensi</p></li>
-<li><p>ekstraksi fitur</p></li>
-<li><p>pencarian fitur utama wajah</p></li>
-</ul>
+<p>Pada program digunakan:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">data_wajah</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
-<section id="matriks-data-wajah">
-<h2>2. Matriks Data Wajah<a class="headerlink" href="#matriks-data-wajah" title="Permalink to this heading">#</a></h2>
-<p>Contoh data wajah:</p>
+<section id="representasi-data-wajah">
+<h2>Representasi Data Wajah<a class="headerlink" href="#representasi-data-wajah" title="Permalink to this heading">#</a></h2>
+<p>Setiap gambar wajah diubah menjadi grayscale lalu diubah menjadi vektor.</p>
+<p>Jika terdapat beberapa gambar wajah:</p>
 <div class="math notranslate nohighlight">
 \[
-x_1 =
+A=
 \begin{bmatrix}
-10 &amp; 20 &amp; 30 &amp; 40
+x_1\
+x_2\
+x_3\
+\vdots\
+x_n
 \end{bmatrix}
 \]</div>
+<p>Pada program:</p>
 <div class="math notranslate nohighlight">
 \[
-x_2 =
-\begin{bmatrix}
-12 &amp; 22 &amp; 32 &amp; 42
-\end{bmatrix}
+A = 6 \times 10000
 \]</div>
-<div class="math notranslate nohighlight">
-\[
-x_3 =
-\begin{bmatrix}
-50 &amp; 60 &amp; 70 &amp; 80
-\end{bmatrix}
-\]</div>
-<p>Maka:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-A =
-\begin{bmatrix}
-10 &amp; 20 &amp; 30 &amp; 40 \\
-12 &amp; 22 &amp; 32 &amp; 42 \\
-50 &amp; 60 &amp; 70 &amp; 80
-\end{bmatrix}
-\end{split}\]</div>
-<p>Ukuran:</p>
-<div class="math notranslate nohighlight">
-\[
-A = 3 \times 4
-\]</div>
+<p>Artinya terdapat 6 gambar wajah dengan 10000 nilai pixel.</p>
 </section>
-<section id="mean-face">
-<h2>3. Mean Face<a class="headerlink" href="#mean-face" title="Permalink to this heading">#</a></h2>
-<p>Rumus:</p>
+<section id="eigenvalue-dan-eigenvector">
+<h2>Eigenvalue dan Eigenvector<a class="headerlink" href="#eigenvalue-dan-eigenvector" title="Permalink to this heading">#</a></h2>
+<p>Untuk mencari eigenvalue dan eigenvector digunakan:</p>
 <div class="math notranslate nohighlight">
 \[
-\mu = \frac{1}{n}\sum_{i=1}^{n}x_i
+AA^T
 \]</div>
-<p>Perhitungan:</p>
+<p>atau</p>
 <div class="math notranslate nohighlight">
 \[
-\mu =
-\begin{bmatrix}
-\frac{10+12+50}{3} &amp;
-\frac{20+22+60}{3} &amp;
-\frac{30+32+70}{3} &amp;
-\frac{40+42+80}{3}
-\end{bmatrix}
+A^TA
 \]</div>
+<p>Eigenvalue dicari dengan:</p>
 <div class="math notranslate nohighlight">
 \[
-=
-\begin{bmatrix}
-24 &amp; 34 &amp; 44 &amp; 54
-\end{bmatrix}
+\det(AA^T-\lambda I)=0
 \]</div>
+<p>Hasilnya:</p>
+<div class="math notranslate nohighlight">
+\[
+\lambda_1,\lambda_2,\lambda_3,\ldots,\lambda_n
+\]</div>
+<p>Setelah itu dicari eigenvector:</p>
+<div class="math notranslate nohighlight">
+\[
+(AA^T-\lambda I)x=0
+\]</div>
+<p>atau</p>
+<div class="math notranslate nohighlight">
+\[
+(A^TA-\lambda I)x=0
+\]</div>
+<p>Eigenvalue menunjukkan tingkat kepentingan fitur, sedangkan eigenvector menunjukkan arah utama data.</p>
 </section>
-<section id="pengurangan-mean-face">
-<h2>4. Pengurangan Mean Face<a class="headerlink" href="#pengurangan-mean-face" title="Permalink to this heading">#</a></h2>
+<section id="singular-value">
+<h2>Singular Value<a class="headerlink" href="#singular-value" title="Permalink to this heading">#</a></h2>
+<p>Singular value diperoleh dari eigenvalue:</p>
 <div class="math notranslate nohighlight">
 \[
-A - \mu
-\]</div>
-<p>Contoh:</p>
-<div class="math notranslate nohighlight">
-\[
-x_1 - \mu
-=
-\begin{bmatrix}
-10-24 &amp; 20-34 &amp; 30-44 &amp; 40-54
-\end{bmatrix}
+\sigma_i=\sqrt{\lambda_i}
 \]</div>
 <div class="math notranslate nohighlight">
 \[
-=
-\begin{bmatrix}
--14 &amp; -14 &amp; -14 &amp; -14
-\end{bmatrix}
+\sigma_1=\sqrt{\lambda_1}
 \]</div>
 <div class="math notranslate nohighlight">
 \[
-x_2 - \mu
-=
-\begin{bmatrix}
--12 &amp; -12 &amp; -12 &amp; -12
-\end{bmatrix}
+\sigma_2=\sqrt{\lambda_2}
 \]</div>
 <div class="math notranslate nohighlight">
 \[
-x_3 - \mu
-=
-\begin{bmatrix}
-26 &amp; 26 &amp; 26 &amp; 26
-\end{bmatrix}
+\vdots
 \]</div>
-<p>Hasil:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-A - \mu =
-\begin{bmatrix}
--14 &amp; -14 &amp; -14 &amp; -14 \\
--12 &amp; -12 &amp; -12 &amp; -12 \\
-26 &amp; 26 &amp; 26 &amp; 26
-\end{bmatrix}
-\end{split}\]</div>
+\[
+\sigma_n=\sqrt{\lambda_n}
+\]</div>
+<p>Pada program singular value disimpan pada:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">S</span>
+</pre></div>
+</div>
 </section>
-<section id="menghitung-aa-t">
-<h2>5. Menghitung (AA^T)<a class="headerlink" href="#menghitung-aa-t" title="Permalink to this heading">#</a></h2>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-AA^T =
-\begin{bmatrix}
-784 &amp; 672 &amp; -1456 \\
-672 &amp; 576 &amp; -1248 \\
--1456 &amp; -1248 &amp; 2704
-\end{bmatrix}
-\end{split}\]</div>
-<p>Contoh:</p>
-<div class="math notranslate nohighlight">
-\[
-(-14)^2+(-14)^2+(-14)^2+(-14)^2
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-=
-196+196+196+196
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-=784
-\]</div>
-</section>
-<section id="eigenvalue-dan-singular-value">
-<h2>6. Eigenvalue dan Singular Value<a class="headerlink" href="#eigenvalue-dan-singular-value" title="Permalink to this heading">#</a></h2>
-<p>Eigenvalue:</p>
-<div class="math notranslate nohighlight">
-\[
-\lambda_1 = 4064
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-\lambda_2 = 0
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-\lambda_3 = 0
-\]</div>
-<p>Singular value:</p>
-<div class="math notranslate nohighlight">
-\[
-\sigma_i = \sqrt{\lambda_i}
-\]</div>
-<p>Perhitungan:</p>
-<div class="math notranslate nohighlight">
-\[
-\sigma_1 = \sqrt{4064}
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-\sigma_1 \approx 63.75
-\]</div>
-<p>Maka:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\Sigma =
-\begin{bmatrix}
-63.75 &amp; 0 &amp; 0 \\
-0 &amp; 0 &amp; 0 \\
-0 &amp; 0 &amp; 0
-\end{bmatrix}
-\end{split}\]</div>
-</section>
-<section id="eigenvector">
-<h2>7. Eigenvector<a class="headerlink" href="#eigenvector" title="Permalink to this heading">#</a></h2>
-<p>Contoh eigenvector utama:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-v_1 =
-\begin{bmatrix}
-0.5 \\
-0.5 \\
-0.5 \\
-0.5
-\end{bmatrix}
-\end{split}\]</div>
-<p>Normalisasi:</p>
-<div class="math notranslate nohighlight">
-\[
-||v_1|| =
-\sqrt{0.5^2+0.5^2+0.5^2+0.5^2}
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-=
-\sqrt{1}
-=1
-\]</div>
-<p>Eigenvector digunakan sebagai eigenface.</p>
-</section>
-<section id="reduksi-dimensi">
-<h2>8. Reduksi Dimensi<a class="headerlink" href="#reduksi-dimensi" title="Permalink to this heading">#</a></h2>
-<p>Misalnya:</p>
-<div class="math notranslate nohighlight">
-\[
-4 \rightarrow 1
-\]</div>
-<p>Artinya:</p>
-<ul class="simple">
-<li><p>4 fitur awal</p></li>
-<li><p>direduksi menjadi 1 fitur utama</p></li>
-</ul>
-</section>
-<section id="proyeksi-ke-eigenspace">
-<h2>9. Proyeksi ke Eigenspace<a class="headerlink" href="#proyeksi-ke-eigenspace" title="Permalink to this heading">#</a></h2>
-<p>Rumus:</p>
-<div class="math notranslate nohighlight">
-\[
-W = A \times V_k^T
-\]</div>
-<p>Contoh:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-[-14,-14,-14,-14]
-\cdot
-\begin{bmatrix}
-0.5 \\
-0.5 \\
-0.5 \\
-0.5
-\end{bmatrix}
-\end{split}\]</div>
-<div class="math notranslate nohighlight">
-\[
-=
--7-7-7-7
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-=-28
-\]</div>
-<p>Hasil:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-W =
-\begin{bmatrix}
--28 \\
--24 \\
-52
-\end{bmatrix}
-\end{split}\]</div>
-</section>
-<section id="euclidean-distance">
-<h2>10. Euclidean Distance<a class="headerlink" href="#euclidean-distance" title="Permalink to this heading">#</a></h2>
-<p>Rumus:</p>
-<div class="math notranslate nohighlight">
-\[
-d(x,y)=\sqrt{\sum_{i=1}^{n}(x_i-y_i)^2}
-\]</div>
-<p>Contoh:</p>
-<div class="math notranslate nohighlight">
-\[
-d=\sqrt{(-26-(-28))^2}
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-=\sqrt{2^2}
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-=2
-\]</div>
-<p>Semakin kecil jarak:</p>
-<ul class="simple">
-<li><p>semakin mirip wajahnya</p></li>
-</ul>
-</section>
-<section id="ukuran-matriks-svd">
-<h2>11. Ukuran Matriks SVD<a class="headerlink" href="#ukuran-matriks-svd" title="Permalink to this heading">#</a></h2>
+<section id="matriks-u">
+<h2>Matriks U<a class="headerlink" href="#matriks-u" title="Permalink to this heading">#</a></h2>
+<p>Matriks U merupakan singular vector kiri.</p>
 <p>Jika:</p>
-<div class="math notranslate nohighlight">
-\[
-A = m \times n
-\]</div>
-<p>maka:</p>
-<div class="math notranslate nohighlight">
-\[
-A_{m \times n}=U_{m \times r}\Sigma_{r \times r}V^T_{r \times n}
-\]</div>
-<p>dengan:</p>
-<div class="math notranslate nohighlight">
-\[
-r=min(m,n)
-\]</div>
-<p>Contoh:</p>
 <div class="math notranslate nohighlight">
 \[
 A = 6 \times 10000
 \]</div>
 <div class="math notranslate nohighlight">
 \[
-r=min(6,10000)=6
+r=min(m,n)
 \]</div>
-<p>Sehingga:</p>
+<div class="math notranslate nohighlight">
+\[
+r=min(6,10000)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+r=6
+\]</div>
+<p>Maka:</p>
+<div class="math notranslate nohighlight">
+\[
+U = m \times r
+\]</div>
 <div class="math notranslate nohighlight">
 \[
 U = 6 \times 6
+\]</div>
+<p>Pada program:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">U</span>
+</pre></div>
+</div>
+</section>
+<section id="matriks-sigma">
+<h2>Matriks Sigma (Σ)<a class="headerlink" href="#matriks-sigma" title="Permalink to this heading">#</a></h2>
+<p>Matriks Sigma dibentuk dari singular value:</p>
+<div class="math notranslate nohighlight">
+\[
+\Sigma=
+\begin{bmatrix}
+\sigma_1 &amp; 0 &amp; 0\
+0 &amp; \sigma_2 &amp; 0\
+0 &amp; 0 &amp; \sigma_3
+\end{bmatrix}
+\]</div>
+<p>Pada program:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Ukuran matriks:</p>
+<div class="math notranslate nohighlight">
+\[
+\Sigma = r \times r
 \]</div>
 <div class="math notranslate nohighlight">
 \[
 \Sigma = 6 \times 6
 \]</div>
+</section>
+<section id="matriks-v-t">
+<h2>Matriks (V^T)<a class="headerlink" href="#matriks-v-t" title="Permalink to this heading">#</a></h2>
+<p>Matriks (V^T) merupakan singular vector kanan.</p>
+<p>Ukurannya:</p>
+<div class="math notranslate nohighlight">
+\[
+V^T = r \times n
+\]</div>
 <div class="math notranslate nohighlight">
 \[
 V^T = 6 \times 10000
 \]</div>
+<p>Pada program:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">VT</span>
+</pre></div>
+</div>
+<p>Baris-baris pada matriks (V^T) digunakan sebagai fitur utama wajah (eigenfaces).</p>
+</section>
+<section id="reduksi-dimensi">
+<h2>Reduksi Dimensi<a class="headerlink" href="#reduksi-dimensi" title="Permalink to this heading">#</a></h2>
+<p>Reduksi dimensi dilakukan dengan memilih singular value terbesar.</p>
+<p>Misalnya:</p>
+<div class="math notranslate nohighlight">
+\[
+\Sigma=
+\begin{bmatrix}
+\sigma_1 &amp; 0 &amp; 0\
+0 &amp; \sigma_2 &amp; 0\
+0 &amp; 0 &amp; \sigma_3
+\end{bmatrix}
+\]</div>
+<p>Jika hanya dipilih dua komponen:</p>
+<div class="math notranslate nohighlight">
+\[
+\Sigma_k=
+\begin{bmatrix}
+\sigma_1 &amp; 0\
+0 &amp; \sigma_2
+\end{bmatrix}
+\]</div>
+<p>Tujuannya:</p>
+<ul class="simple">
+<li><p>mengurangi jumlah fitur</p></li>
+<li><p>mempercepat komputasi</p></li>
+<li><p>mempertahankan informasi penting</p></li>
+</ul>
+</section>
+<section id="face-recognition">
+<h2>Face Recognition<a class="headerlink" href="#face-recognition" title="Permalink to this heading">#</a></h2>
+<p>Wajah uji diproyeksikan ke ruang fitur hasil SVD.</p>
+<p>Kemudian dibandingkan dengan data training menggunakan Euclidean Distance:</p>
+<div class="math notranslate nohighlight">
+\[
+d(x,y)=\sqrt{\sum_{i=1}^{n}(x_i-y_i)^2}
+\]</div>
+<p>Jarak terkecil menunjukkan wajah yang paling mirip.</p>
+<p>Contoh hasil program:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Wajah test paling mirip dengan: Emma
+</pre></div>
+</div>
 </section>
 <section id="kesimpulan">
-<h2>12. Kesimpulan<a class="headerlink" href="#kesimpulan" title="Permalink to this heading">#</a></h2>
-<p>SVD digunakan untuk:</p>
-<ul class="simple">
-<li><p>memecah matriks wajah</p></li>
-<li><p>mencari fitur utama</p></li>
-<li><p>melakukan reduksi dimensi</p></li>
-</ul>
-<p>Tahapan:</p>
-<ol class="arabic simple">
-<li><p>membentuk matriks wajah</p></li>
-<li><p>menghitung mean face</p></li>
-<li><p>pengurangan mean face</p></li>
-<li><p>menghitung SVD</p></li>
-<li><p>membentuk eigenvalue dan eigenvector</p></li>
-<li><p>reduksi dimensi</p></li>
-<li><p>proyeksi ke eigenspace</p></li>
-<li><p>menghitung Euclidean Distance</p></li>
-</ol>
+<h2>Kesimpulan<a class="headerlink" href="#kesimpulan" title="Permalink to this heading">#</a></h2>
+<p>SVD memecah matriks wajah menjadi matriks U, Σ, dan (V^T). Hasil dekomposisi digunakan untuk memperoleh eigenvalue, eigenvector, melakukan reduksi dimensi, dan menentukan wajah yang paling mirip.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==================================================</span>
@@ -950,6 +811,16 @@ V^T = 6 \times 10000
         <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Eigenface&#39;</span>
     <span class="p">)</span>
 <span class="p">)</span>
+
+<span class="n">AA_T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">data_tengah</span><span class="p">,</span> <span class="n">data_tengah</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+<span class="n">eigenvalue</span><span class="p">,</span> <span class="n">eigenvector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">AA_T</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvalue:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">eigenvalue</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvector:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1270,18 +1141,16 @@ Jarak terkecil                : 3372.64433102316
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#link-colab">Link Colab:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-svd">1. Rumus SVD</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-data-wajah">2. Matriks Data Wajah</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-face">3. Mean Face</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengurangan-mean-face">4. Pengurangan Mean Face</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-aa-t">5. Menghitung (AA^T)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-dan-singular-value">6. Eigenvalue dan Singular Value</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvector">7. Eigenvector</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduksi-dimensi">8. Reduksi Dimensi</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proyeksi-ke-eigenspace">9. Proyeksi ke Eigenspace</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean-distance">10. Euclidean Distance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ukuran-matriks-svd">11. Ukuran Matriks SVD</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">12. Kesimpulan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konsep-svd">Konsep SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#representasi-data-wajah">Representasi Data Wajah</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-dan-eigenvector">Eigenvalue dan Eigenvector</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#singular-value">Singular Value</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-u">Matriks U</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-sigma">Matriks Sigma (Σ)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-v-t">Matriks (V^T)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduksi-dimensi">Reduksi Dimensi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#face-recognition">Face Recognition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
 </ul>
   </nav></div>
 
