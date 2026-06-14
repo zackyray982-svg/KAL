@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>SOAL &#8212; Catatan Komputasi Aljabar Linier</title>
+    <title>1. Matriks 5×5 &#8212; Catatan Komputasi Aljabar Linier</title>
   
   
   
@@ -179,17 +179,26 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Persamaan_Linier.html">SOAL Persamaan Linier</a></li>
 
 
-
 <li class="toctree-l1"><a class="reference internal" href="Resume_Materi_Sistem_Persamaan_Linier.html">Resume Materi Sistem Persamaan Linier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="TugasGauss.html">Membuat operasi baris elementer 5 variabel dan 5 persamaan (eliminasi gauss)</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">SOAL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TugasGauss.html">Membuat operasi baris elementer</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. Matriks 5×5</a></li>
+
+
+
+
+
+
+
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="Tugas3.html">SOAL EVALUASI DETERMINAN DAN INVERS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tugas4.html">Tugas Transformasi Geometri</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tugas5.html">Tugas EigenValue dan EigenFaktor</a></li>
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="TugasSVD.html">Singular Value Decomposition (SVD)</a></li>
-
-
-
 </ul>
 
     </div>
@@ -328,7 +337,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>SOAL</h1>
+    <h1>1. Matriks 5×5</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -338,18 +347,22 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minor">1. MINOR</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghapus-baris-dan-kolom">Menghapus Baris dan kolom:</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">1. Matriks 5×5</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#minor-matriks">2. Minor Matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#kofaktor-matriks">3. Kofaktor Matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#determinan-matriks">4. Determinan Matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ekspansi-kofaktor">5. Ekspansi Kofaktor</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bagian-am-11">Bagian <span class="math notranslate nohighlight">\(aM_{11}\)</span></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-kofaktor-matriks">2. MENENTUKAN KOFAKTOR MATRIKS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tanda-kofaktor">Tanda Kofaktor</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-baris-pertama">Contoh baris pertama:</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#determinan-akhir">6. Determinan Akhir</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#adjoin-matriks">7. Adjoin Matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#invers-matriks">8. Invers Matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-adjoin-matriks">9. Contoh Adjoin Matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-invers-matriks">10. Contoh Invers Matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-determinan-matriks-33">11. Contoh Perhitungan Determinan Matriks 3×3</a></li>
 </ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#determinan-det-a">3. DETERMINAN <span class="math notranslate nohighlight">\(det(A)\)</span></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adjoin-adj-a">4. ADJOIN <span class="math notranslate nohighlight">\(adj(A)\)</span></a></li>
-</ul>
+
             </nav>
         </div>
     </div>
@@ -360,158 +373,564 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="soal">
-<h1>SOAL<a class="headerlink" href="#soal" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="matriks-55">
+<h1>1. Matriks 5×5<a class="headerlink" href="#matriks-55" title="Permalink to this heading">#</a></h1>
+<p>Diketahui matriks:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
+\small
 A =
-\begin{bmatrix}
-a &amp; b &amp; c &amp; d &amp; e &amp;\\
-f &amp; g &amp; h &amp; i &amp; j &amp;\\
-k &amp; l &amp; m &amp; n &amp; o &amp;\\
-p &amp; q &amp; r &amp; s &amp; t &amp;\\
+\left[
+\begin{array}{ccccc}
+a &amp; b &amp; c &amp; d &amp; e\\
+f &amp; g &amp; h &amp; i &amp; j\\
+k &amp; l &amp; m &amp; n &amp; o\\
+p &amp; q &amp; r &amp; s &amp; t\\
 u &amp; v &amp; w &amp; x &amp; y
-\end{bmatrix}
+\end{array}
+\right]
 \end{split}\]</div>
-<section id="minor">
-<h2>1. MINOR<a class="headerlink" href="#minor" title="Permalink to this heading">#</a></h2>
-<p>Menentukan minor setiap elemen matriks sebagai dasar untuk perhitungan kofaktor, determinan, dan invers</p>
-<p>Minor
-<span class="math notranslate nohighlight">\(M_{ij}\)</span>
-adalah determinan submatriks yang diperoleh dengan menghapus baris ke-i dan kolom ke-j dari matriks A.</p>
-<p>Diketahui</p>
-<p><span class="math notranslate nohighlight">\(A =
-\begin{bmatrix}
-a &amp; b &amp; c &amp; d &amp; e \\
-f &amp; g &amp; h &amp; i &amp; j \\
-k &amp; l &amp; m &amp; n &amp; o \\
-p &amp; q &amp; r &amp; s &amp; t \\
-u &amp; v &amp; w &amp; x &amp; y
-\end{bmatrix}\)</span></p>
-<section id="menghapus-baris-dan-kolom">
-<h3>Menghapus Baris dan kolom:<a class="headerlink" href="#menghapus-baris-dan-kolom" title="Permalink to this heading">#</a></h3>
-<p><span class="math notranslate nohighlight">\(M_{11} =
-\begin{bmatrix}
-g &amp; h &amp; i &amp; j \\
-e &amp; m &amp; n &amp; o \\
-q &amp; r &amp; s &amp; t \\
-v &amp; w &amp; x &amp; y
-\end{bmatrix}\)</span></p>
-<p><span class="math notranslate nohighlight">\(M_{12} =
-\begin{bmatrix}
-f &amp; h &amp; i &amp; j \\
-k &amp; m &amp; n &amp; o \\
-p &amp; r &amp; s &amp; t \\
-u &amp; w &amp; x &amp; y
-\end{bmatrix}\)</span></p>
-<p><span class="math notranslate nohighlight">\(M_{13} =
-\begin{bmatrix}
-f &amp; g &amp; i &amp; j \\
-k &amp; e &amp; n &amp; o \\
-p &amp; q &amp; s &amp; t \\
-u &amp; v &amp; x &amp; y
-\end{bmatrix}\)</span></p>
-<p><span class="math notranslate nohighlight">\(M_{15} =
-\begin{bmatrix}
-f &amp; g &amp; h &amp; i \\
-k &amp; e &amp; m &amp; n \\
-p &amp; q &amp; r &amp; s \\
-u &amp; v &amp; w &amp; x
-\end{bmatrix}\)</span></p>
+<p>Matriks di atas digunakan sebagai dasar dalam proses pencarian minor, kofaktor, determinan, adjoin, dan invers matriks.</p>
 </section>
-</section>
-<section id="menentukan-kofaktor-matriks">
-<h2>2. MENENTUKAN KOFAKTOR MATRIKS<a class="headerlink" href="#menentukan-kofaktor-matriks" title="Permalink to this heading">#</a></h2>
-<p>Menentukan nilai kofaktor dari setiap elemen matriks berdasarkan minor yang telah diperoleh pada langkah sebelumnya</p>
-<p>Kofaktor <span class="math notranslate nohighlight">\(C_{ij}\)</span> adalah hasil perkalian antara minor <span class="math notranslate nohighlight">\(M_{ij}\)</span> dengan tanda <span class="math notranslate nohighlight">\((-1)^{i+j}\)</span>:</p>
+<section class="tex2jax_ignore mathjax_ignore" id="minor-matriks">
+<h1>2. Minor Matriks<a class="headerlink" href="#minor-matriks" title="Permalink to this heading">#</a></h1>
+<p>Minor adalah determinan submatriks yang diperoleh dengan menghapus satu baris dan satu kolom tertentu dari matriks asal.</p>
+<p>Rumus minor:</p>
 <div class="math notranslate nohighlight">
 \[
-C_{ij} = (-1)^{i+j} \cdot M_{ij}\]</div>
-<ul class="simple">
-<li><p>Jika <span class="math notranslate nohighlight">\(i\)</span>+<span class="math notranslate nohighlight">\(j\)</span>
-genap → tanda positif (+)</p></li>
-<li><p>Jika <span class="math notranslate nohighlight">\(i\)</span>+<span class="math notranslate nohighlight">\(j\)</span>
-ganjil → tanda negatif (−)</p></li>
-</ul>
-</section>
-<section id="tanda-kofaktor">
-<h2>Tanda Kofaktor<a class="headerlink" href="#tanda-kofaktor" title="Permalink to this heading">#</a></h2>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{bmatrix}
-+ &amp; - &amp; + &amp; - &amp; + \\
-- &amp; + &amp; - &amp; + &amp; - \\
-+ &amp; - &amp; + &amp; - &amp; + \\
-- &amp; + &amp; - &amp; + &amp; - \\
-+ &amp; - &amp; + &amp; - &amp; +
-\end{bmatrix}
-\end{split}\]</div>
-<section id="contoh-baris-pertama">
-<h3>Contoh baris pertama:<a class="headerlink" href="#contoh-baris-pertama" title="Permalink to this heading">#</a></h3>
-<p><span class="math notranslate nohighlight">\(C_{11}=+M_{11}\)</span></p>
-<p><span class="math notranslate nohighlight">\(C_{12}=-M_{12}\)</span></p>
-<p><span class="math notranslate nohighlight">\(C_{13}=+M_{13}\)</span></p>
-<p><span class="math notranslate nohighlight">\(C_{14}=-M_{14}\)</span></p>
-<p><span class="math notranslate nohighlight">\(C_{15}=+M_{15}\)</span>
-​</p>
-<p>Setelah semua kofaktor <span class="math notranslate nohighlight">\(C_{ij}\)</span> diperoleh, nilai-nilai tersebut disusun sesuai posisi elemen aslinya dalam matriks</p>
+M_{ij}
+\]</div>
+<p>Contoh minor pada baris pertama:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-C =
-\begin{bmatrix}
-C_{11} &amp; C_{12} &amp; C_{13} &amp; C_{14} &amp; C_{15} \\
-C_{21} &amp; C_{22} &amp; C_{23} &amp; C_{24} &amp; C_{25} \\
-C_{31} &amp; C_{32} &amp; C_{33} &amp; C_{34} &amp; C_{35} \\
-C_{41} &amp; C_{42} &amp; C_{43} &amp; C_{44} &amp; C_{45} \\
-C_{51} &amp; C_{52} &amp; C_{53} &amp; C_{54} &amp; C_{55}
-\end{bmatrix}
+\small
+M_{11}=
+\left|
+\begin{array}{cccc}
+g &amp; h &amp; i &amp; j\\
+l &amp; m &amp; n &amp; o\\
+q &amp; r &amp; s &amp; t\\
+v &amp; w &amp; x &amp; y
+\end{array}
+\right|
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\small
+M_{12}=
+\left|
+\begin{array}{cccc}
+f &amp; h &amp; i &amp; j\\
+k &amp; m &amp; n &amp; o\\
+p &amp; r &amp; s &amp; t\\
+u &amp; w &amp; x &amp; y
+\end{array}
+\right|
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\small
+M_{13}=
+\left|
+\begin{array}{cccc}
+f &amp; g &amp; i &amp; j\\
+k &amp; l &amp; n &amp; o\\
+p &amp; q &amp; s &amp; t\\
+u &amp; v &amp; x &amp; y
+\end{array}
+\right|
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\small
+M_{14}=
+\left|
+\begin{array}{cccc}
+f &amp; g &amp; h &amp; j\\
+k &amp; l &amp; m &amp; o\\
+p &amp; q &amp; r &amp; t\\
+u &amp; v &amp; w &amp; y
+\end{array}
+\right|
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\small
+M_{15}=
+\left|
+\begin{array}{cccc}
+f &amp; g &amp; h &amp; i\\
+k &amp; l &amp; m &amp; n\\
+p &amp; q &amp; r &amp; s\\
+u &amp; v &amp; w &amp; x
+\end{array}
+\right|
 \end{split}\]</div>
 </section>
-</section>
-<section id="determinan-det-a">
-<h2>3. DETERMINAN <span class="math notranslate nohighlight">\(det(A)\)</span><a class="headerlink" href="#determinan-det-a" title="Permalink to this heading">#</a></h2>
-<p>Determinan matriks 5×5 dihitung dengan ekspansi baris pertama:</p>
-<p><span class="math notranslate nohighlight">\(\det(A)= aC_{11}+bC_{12}+cC_{13}+dC_{14}+eC_{15}\)</span></p>
-<p>Substitusi kofaktor:</p>
-<p><span class="math notranslate nohighlight">\(\det(A)=
-aM_{11}
--bM_{12}
-+cM_{13}
--dM_{14}
-+eM_{15}\)</span></p>
-<p>Artinya determinan adalah jumlah dari elemen baris pertama dikalikan kofaktornya</p>
-</section>
-<section id="adjoin-adj-a">
-<h2>4. ADJOIN <span class="math notranslate nohighlight">\(adj(A)\)</span><a class="headerlink" href="#adjoin-adj-a" title="Permalink to this heading">#</a></h2>
-<p><span class="math notranslate nohighlight">\(Adj(A) = C^T\)</span></p>
-<p>Transpose berarti:</p>
-<ul class="simple">
-<li><p>baris menjadi kolom</p></li>
-<li><p>kolom menjadi baris</p></li>
-</ul>
-<p>Bentuk Adjoin Matriks</p>
+<section class="tex2jax_ignore mathjax_ignore" id="kofaktor-matriks">
+<h1>3. Kofaktor Matriks<a class="headerlink" href="#kofaktor-matriks" title="Permalink to this heading">#</a></h1>
+<p>Kofaktor diperoleh dari minor yang dikalikan dengan tanda positif atau negatif sesuai posisinya.</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}Adj(A) =
-\begin{bmatrix}
-C_{11} &amp; C_{21} &amp; C_{31} &amp; C_{41} &amp; C_{51} \\
-C_{12} &amp; C_{22} &amp; C_{32} &amp; C_{42} &amp; C_{52} \\
-C_{13} &amp; C_{23} &amp; C_{33} &amp; C_{43} &amp; C_{53} \\
-C_{14} &amp; C_{24} &amp; C_{34} &amp; C_{44} &amp; C_{54} \\
-C_{15} &amp; C_{25} &amp; C_{35} &amp; C_{45} &amp; C_{55}
-\end{bmatrix}\end{split}\]</div>
-<p>##5. INVERS MATRIKS <span class="math notranslate nohighlight">\(A^{-1}\)</span></p>
-<p>Rumus invers matriks:</p>
-<p><span class="math notranslate nohighlight">\(A^{-1} = \frac{1}{\det(A)} \, \text{adj}(A)\)</span></p>
-<p>Substitusi:</p>
-<p><span class="math notranslate nohighlight">\(A^{-1} =
-\frac{1}{\det(A)}
-\begin{bmatrix}
-C_{11} &amp; C_{21} &amp; C_{31} &amp; C_{41} &amp; C_{51} \\
-C_{12} &amp; C_{22} &amp; C_{32} &amp; C_{42} &amp; C_{52} \\
-C_{13} &amp; C_{23} &amp; C_{33} &amp; C_{43} &amp; C_{53} \\
-C_{14} &amp; C_{24} &amp; C_{34} &amp; C_{44} &amp; C_{54} \\
-C_{15} &amp; C_{25} &amp; C_{35} &amp; C_{45} &amp; C_{55}
-\end{bmatrix}\)</span></p>
+\[
+C_{ij}=(-1)^{i+j}M_{ij}
+\]</div>
+<p>Pola tanda kofaktor:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\small
+\left[
+\begin{array}{ccccc}
++ &amp; - &amp; + &amp; - &amp; +\\
+- &amp; + &amp; - &amp; + &amp; -\\
++ &amp; - &amp; + &amp; - &amp; +\\
+- &amp; + &amp; - &amp; + &amp; -\\
++ &amp; - &amp; + &amp; - &amp; +
+\end{array}
+\right]
+\end{split}\]</div>
+<p>Contoh kofaktor pada baris pertama:</p>
+<div class="math notranslate nohighlight">
+\[
+C_{11}=+M_{11}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+C_{12}=-M_{12}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+C_{13}=+M_{13}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+C_{14}=-M_{14}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+C_{15}=+M_{15}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\small
+C=
+\left[
+\begin{array}{ccccc}
+C_{11} &amp; C_{12} &amp; C_{13} &amp; C_{14} &amp; C_{15}\\
+C_{21} &amp; C_{22} &amp; C_{23} &amp; C_{24} &amp; C_{25}\\
+C_{31} &amp; C_{32} &amp; C_{33} &amp; C_{34} &amp; C_{35}\\
+C_{41} &amp; C_{42} &amp; C_{43} &amp; C_{44} &amp; C_{45}\\
+C_{51} &amp; C_{52} &amp; C_{53} &amp; C_{54} &amp; C_{55}
+\end{array}
+\right]
+\end{split}\]</div>
 </section>
+<section class="tex2jax_ignore mathjax_ignore" id="determinan-matriks">
+<h1>4. Determinan Matriks<a class="headerlink" href="#determinan-matriks" title="Permalink to this heading">#</a></h1>
+<p>Determinan matriks 5×5 dapat dihitung menggunakan ekspansi kofaktor pada baris pertama.</p>
+<div class="math notranslate nohighlight">
+\[
+det(A)=aC_{11}+bC_{12}+cC_{13}+dC_{14}+eC_{15}
+\]</div>
+<p>Karena tanda kofaktor pada baris pertama adalah:</p>
+<div class="math notranslate nohighlight">
+\[
+(+,-,+,-,+)
+\]</div>
+<p>maka diperoleh:</p>
+<div class="math notranslate nohighlight">
+\[
+det(A)=aM_{11}-bM_{12}+cM_{13}-dM_{14}+eM_{15}
+\]</div>
+<p>Artinya setiap elemen pada baris pertama dikalikan dengan minor yang sesuai kemudian dijumlahkan berdasarkan tanda kofaktornya.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="ekspansi-kofaktor">
+<h1>5. Ekspansi Kofaktor<a class="headerlink" href="#ekspansi-kofaktor" title="Permalink to this heading">#</a></h1>
+<section id="bagian-am-11">
+<h2>Bagian <span class="math notranslate nohighlight">\(aM_{11}\)</span><a class="headerlink" href="#bagian-am-11" title="Permalink to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\small
+aM_{11}
+=
+a
+\left|
+\begin{array}{cccc}
+g &amp; h &amp; i &amp; j\\
+l &amp; m &amp; n &amp; o\\
+q &amp; r &amp; s &amp; t\\
+v &amp; w &amp; x &amp; y
+\end{array}
+\right|
+\end{split}\]</div>
+<p>Ekspansi menjadi determinan 3×3:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\small
+aM_{11}
+=
+a
+\left[
+g
+\left|
+\begin{array}{ccc}
+m &amp; n &amp; o\\
+r &amp; s &amp; t\\
+w &amp; x &amp; y
+\end{array}
+\right|
+-
+h
+\left|
+\begin{array}{ccc}
+l &amp; n &amp; o\\
+q &amp; s &amp; t\\
+v &amp; x &amp; y
+\end{array}
+\right|
++
+i
+\left|
+\begin{array}{ccc}
+l &amp; m &amp; o\\
+q &amp; r &amp; t\\
+v &amp; w &amp; y
+\end{array}
+\right|
+-
+j
+\left|
+\begin{array}{ccc}
+l &amp; m &amp; n\\
+q &amp; r &amp; s\\
+v &amp; w &amp; x
+\end{array}
+\right|
+\right]
+\end{split}\]</div>
+<p>Salah satu determinan 3×3:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\small
+\left|
+\begin{array}{ccc}
+m &amp; n &amp; o\\
+r &amp; s &amp; t\\
+w &amp; x &amp; y
+\end{array}
+\right|
+=
+m(sy-tx)-n(ry-tw)+o(rx-sw)
+\end{split}\]</div>
+<p>Sehingga:</p>
+<div class="math notranslate nohighlight">
+\[
+\small
+aM_{11}
+=
+a[
+g(m(sy-tx)-n(ry-tw)+o(rx-sw))
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\small
+-h(l(sy-tx)-n(qy-tv)+o(qx-sv))
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\small
++i(l(ry-tw)-m(qy-tv)+o(qw-rv))
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\small
+-j(l(rx-sw)-m(qx-sv)+n(qw-rv))
+]
+\]</div>
+<p>Untuk <span class="math notranslate nohighlight">\(M_{12}\)</span>, <span class="math notranslate nohighlight">\(M_{13}\)</span>, <span class="math notranslate nohighlight">\(M_{14}\)</span>, dan <span class="math notranslate nohighlight">\(M_{15}\)</span> proses ekspansinya dilakukan dengan langkah yang sama seperti pada <span class="math notranslate nohighlight">\(M_{11}\)</span>.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="determinan-akhir">
+<h1>6. Determinan Akhir<a class="headerlink" href="#determinan-akhir" title="Permalink to this heading">#</a></h1>
+<p>Setelah seluruh ekspansi selesai dilakukan, diperoleh:</p>
+<div class="math notranslate nohighlight">
+\[
+det(A)=aM_{11}-bM_{12}+cM_{13}-dM_{14}+eM_{15}
+\]</div>
+<p>Nilai tersebut merupakan determinan dari matriks <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="adjoin-matriks">
+<h1>7. Adjoin Matriks<a class="headerlink" href="#adjoin-matriks" title="Permalink to this heading">#</a></h1>
+<p>Adjoin adalah transpose dari matriks kofaktor.</p>
+<div class="math notranslate nohighlight">
+\[
+Adj(A)=C^T
+\]</div>
+<p>Jika matriks kofaktor:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\small
+C=
+\left[
+\begin{array}{ccccc}
+C_{11} &amp; C_{12} &amp; C_{13} &amp; C_{14} &amp; C_{15}\\
+C_{21} &amp; C_{22} &amp; C_{23} &amp; C_{24} &amp; C_{25}\\
+C_{31} &amp; C_{32} &amp; C_{33} &amp; C_{34} &amp; C_{35}\\
+C_{41} &amp; C_{42} &amp; C_{43} &amp; C_{44} &amp; C_{45}\\
+C_{51} &amp; C_{52} &amp; C_{53} &amp; C_{54} &amp; C_{55}
+\end{array}
+\right]
+\end{split}\]</div>
+<p>Maka:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\small
+Adj(A)=
+\left[
+\begin{array}{ccccc}
+C_{11} &amp; C_{21} &amp; C_{31} &amp; C_{41} &amp; C_{51}\\
+C_{12} &amp; C_{22} &amp; C_{32} &amp; C_{42} &amp; C_{52}\\
+C_{13} &amp; C_{23} &amp; C_{33} &amp; C_{43} &amp; C_{53}\\
+C_{14} &amp; C_{24} &amp; C_{34} &amp; C_{44} &amp; C_{54}\\
+C_{15} &amp; C_{25} &amp; C_{35} &amp; C_{45} &amp; C_{55}
+\end{array}
+\right]
+\end{split}\]</div>
+<p>Transpose berarti baris menjadi kolom dan kolom menjadi baris.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="invers-matriks">
+<h1>8. Invers Matriks<a class="headerlink" href="#invers-matriks" title="Permalink to this heading">#</a></h1>
+<p>Invers matriks diperoleh dengan rumus:</p>
+<div class="math notranslate nohighlight">
+\[
+A^{-1}
+=
+\frac{1}{det(A)}
+Adj(A)
+\]</div>
+<p>Syarat matriks memiliki invers:</p>
+<div class="math notranslate nohighlight">
+\[
+det(A)\neq0
+\]</div>
+<p>Jika determinan sama dengan nol, maka matriks tidak memiliki invers.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\small
+A^{-1}
+=
+\frac{1}{det(A)}
+\left[
+\begin{array}{ccccc}
+C_{11} &amp; C_{21} &amp; C_{31} &amp; C_{41} &amp; C_{51}\\
+C_{12} &amp; C_{22} &amp; C_{32} &amp; C_{42} &amp; C_{52}\\
+C_{13} &amp; C_{23} &amp; C_{33} &amp; C_{43} &amp; C_{53}\\
+C_{14} &amp; C_{24} &amp; C_{34} &amp; C_{44} &amp; C_{54}\\
+C_{15} &amp; C_{25} &amp; C_{35} &amp; C_{45} &amp; C_{55}
+\end{array}
+\right]
+\end{split}\]</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="contoh-adjoin-matriks">
+<h1>9. Contoh Adjoin Matriks<a class="headerlink" href="#contoh-adjoin-matriks" title="Permalink to this heading">#</a></h1>
+<p>Diketahui matriks kofaktor:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+C=
+\left[
+\begin{array}{ccc}
+1&amp;2&amp;3\\
+4&amp;5&amp;6\\
+7&amp;8&amp;9
+\end{array}
+\right]
+\end{split}\]</div>
+<p>Adjoin diperoleh dengan melakukan transpose pada matriks kofaktor.</p>
+<div class="math notranslate nohighlight">
+\[
+Adj(A)=C^T
+\]</div>
+<p>Maka:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+Adj(A)=
+\left[
+\begin{array}{ccc}
+1&amp;4&amp;7\\
+2&amp;5&amp;8\\
+3&amp;6&amp;9
+\end{array}
+\right]
+\end{split}\]</div>
+<p>Baris pada matriks kofaktor berubah menjadi kolom pada matriks adjoin.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="contoh-invers-matriks">
+<h1>10. Contoh Invers Matriks<a class="headerlink" href="#contoh-invers-matriks" title="Permalink to this heading">#</a></h1>
+<p>Diketahui:</p>
+<div class="math notranslate nohighlight">
+\[
+det(A)=5
+\]</div>
+<p>dan:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+Adj(A)=
+\left[
+\begin{array}{cc}
+2&amp;1\\
+3&amp;4
+\end{array}
+\right]
+\end{split}\]</div>
+<p>Rumus invers:</p>
+<div class="math notranslate nohighlight">
+\[
+A^{-1}
+=
+\frac{1}{det(A)}
+Adj(A)
+\]</div>
+<p>Substitusi nilai:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A^{-1}
+=
+\frac{1}{5}
+\left[
+\begin{array}{cc}
+2&amp;1\\
+3&amp;4
+\end{array}
+\right]
+\end{split}\]</div>
+<p>Hasil:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A^{-1}
+=
+\left[
+\begin{array}{cc}
+0.4&amp;0.2\\
+0.6&amp;0.8
+\end{array}
+\right]
+\end{split}\]</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="contoh-perhitungan-determinan-matriks-33">
+<h1>11. Contoh Perhitungan Determinan Matriks 3×3<a class="headerlink" href="#contoh-perhitungan-determinan-matriks-33" title="Permalink to this heading">#</a></h1>
+<p>Diketahui:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A=
+\left[
+\begin{array}{ccc}
+1&amp;2&amp;3\\
+0&amp;1&amp;4\\
+5&amp;6&amp;0
+\end{array}
+\right]
+\end{split}\]</div>
+<p>Menggunakan ekspansi kofaktor baris pertama:</p>
+<div class="math notranslate nohighlight">
+\[
+det(A)=1C_{11}+2C_{12}+3C_{13}
+\]</div>
+<p>Mencari <span class="math notranslate nohighlight">\(C_{11}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+M_{11}
+=
+\left|
+\begin{array}{cc}
+1&amp;4\\
+6&amp;0
+\end{array}
+\right|
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+M_{11}=(1\times0)-(4\times6)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+M_{11}=-24
+\]</div>
+<p>Karena posisi <span class="math notranslate nohighlight">\(C_{11}\)</span> bertanda positif:</p>
+<div class="math notranslate nohighlight">
+\[
+C_{11}=-24
+\]</div>
+<p>Mencari <span class="math notranslate nohighlight">\(C_{12}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+M_{12}
+=
+\left|
+\begin{array}{cc}
+0&amp;4\\
+5&amp;0
+\end{array}
+\right|
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+M_{12}=(0\times0)-(4\times5)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+M_{12}=-20
+\]</div>
+<p>Karena posisi <span class="math notranslate nohighlight">\(C_{12}\)</span> bertanda negatif:</p>
+<div class="math notranslate nohighlight">
+\[
+C_{12}=-(-20)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+C_{12}=20
+\]</div>
+<p>Mencari <span class="math notranslate nohighlight">\(C_{13}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+M_{13}
+=
+\left|
+\begin{array}{cc}
+0&amp;1\\
+5&amp;6
+\end{array}
+\right|
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+M_{13}=(0\times6)-(1\times5)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+M_{13}=-5
+\]</div>
+<p>Karena posisi <span class="math notranslate nohighlight">\(C_{13}\)</span> bertanda positif:</p>
+<div class="math notranslate nohighlight">
+\[
+C_{13}=-5
+\]</div>
+<p>Substitusi ke rumus determinan:</p>
+<div class="math notranslate nohighlight">
+\[
+det(A)=1(-24)+2(20)+3(-5)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+det(A)=-24+40-15
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+det(A)=1
+\]</div>
+<p>Jadi nilai determinan matriks tersebut adalah:</p>
+<div class="math notranslate nohighlight">
+\[
+det(A)=1
+\]</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -578,18 +997,22 @@ C_{15} &amp; C_{25} &amp; C_{35} &amp; C_{45} &amp; C_{55}
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minor">1. MINOR</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghapus-baris-dan-kolom">Menghapus Baris dan kolom:</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">1. Matriks 5×5</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#minor-matriks">2. Minor Matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#kofaktor-matriks">3. Kofaktor Matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#determinan-matriks">4. Determinan Matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ekspansi-kofaktor">5. Ekspansi Kofaktor</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bagian-am-11">Bagian <span class="math notranslate nohighlight">\(aM_{11}\)</span></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-kofaktor-matriks">2. MENENTUKAN KOFAKTOR MATRIKS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tanda-kofaktor">Tanda Kofaktor</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-baris-pertama">Contoh baris pertama:</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#determinan-akhir">6. Determinan Akhir</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#adjoin-matriks">7. Adjoin Matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#invers-matriks">8. Invers Matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-adjoin-matriks">9. Contoh Adjoin Matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-invers-matriks">10. Contoh Invers Matriks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-determinan-matriks-33">11. Contoh Perhitungan Determinan Matriks 3×3</a></li>
 </ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#determinan-det-a">3. DETERMINAN <span class="math notranslate nohighlight">\(det(A)\)</span></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adjoin-adj-a">4. ADJOIN <span class="math notranslate nohighlight">\(adj(A)\)</span></a></li>
-</ul>
+
   </nav></div>
 
 </div></div>
