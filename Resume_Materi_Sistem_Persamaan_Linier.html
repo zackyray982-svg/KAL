@@ -68,7 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Membuat operasi baris elementer 5 variabel dan 5 persamaan (eliminasi gauss)" href="TugasGauss.html" />
-    <link rel="prev" title="Nama: Rayhan Zackiansyah" href="Persamaan_Linier.html" />
+    <link rel="prev" title="SOAL Persamaan Linier" href="Persamaan_Linier.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -179,17 +179,27 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Persamaan_Linier.html">SOAL Persamaan Linier</a></li>
 
 
-
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Resume Materi Sistem Persamaan Linier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="TugasGauss.html">Membuat operasi baris elementer 5 variabel dan 5 persamaan (eliminasi gauss)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="TugasmatriksAdjoin.html">SOAL MATRIKS ADJOIN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TugasGauss.html">Membuat operasi baris elementer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TugasmatriksAdjoin.html">SOAL MATRIKD ADJOIN</a></li>
+
+
+
+
+
+
+
+
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="Tugas3.html">SOAL EVALUASI DETERMINAN DAN INVERS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tugas4.html">Tugas Transformasi Geometri</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tugas5.html">Tugas EigenValue dan EigenFaktor</a></li>
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="TugasSVD.html">Singular Value Decomposition (SVD)</a></li>
-
-
-
 </ul>
 
     </div>
@@ -469,23 +479,25 @@ Artinya tidak ada solusi: <span class="math notranslate nohighlight">\( S = ∅ 
 <div class="math notranslate nohighlight">
 \[-2_{x1} ​+ 7_{x2} ​− 5_{x3} ​+ 2_{x4} ​+ 2_{x5} = -3\]</div>
 <p>memiliki matriks dengan koefisien:</p>
-<p>\begin{aligned}
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{aligned}
 A &amp;=
 \begin{bmatrix}
-2 &amp; 4 &amp; -3 &amp; 5 &amp; 1 \
-3 &amp; 1 &amp; 0 &amp; 1 &amp; -3 \
+2 &amp; 4 &amp; -3 &amp; 5 &amp; 1 \\
+3 &amp; 1 &amp; 0 &amp; 1 &amp; -3 \\
 -2 &amp; 7 &amp; -5 &amp; 2 &amp; 2
 \end{bmatrix}
-\end{aligned}</p>
+\end{aligned} \end{split}\]</div>
 <p>dan vektor konstanta:</p>
-<p>\begin{aligned}
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{aligned}
 b &amp;=
 \begin{bmatrix}
-9 \
-0 \
+9 \\
+0 \\
 -3
 \end{bmatrix}
-\end{aligned}</p>
+\end{aligned} \end{split}\]</div>
 <p>dan sistem tersebut dapat dituliskan dalam bentuk <span class="math notranslate nohighlight">\(LS(A,\mathbf{b})\)</span></p>
 </section>
 <section id="matriks-augmentasi">
@@ -509,11 +521,11 @@ b &amp;=
 <div class="math notranslate nohighlight">
 \[ x_1 + x_2 = 5 \]</div>
 <p>Berikut ini adalah matriks augmentasinya:</p>
-<p>\begin{bmatrix}
-1 &amp; -1 &amp; 2 &amp; 1\
-2 &amp; 1 &amp; 1 &amp; 8 \
+<p><span class="math notranslate nohighlight">\( \begin{bmatrix}
+1 &amp; -1 &amp; 2 &amp; 1\\
+2 &amp; 1 &amp; 1 &amp; 8 \\
 1 &amp; 1 &amp; 0 &amp; 5
-\end{bmatrix}</p>
+\end{bmatrix} \)</span></p>
 <p>Augmented matrix ini dipakai dalam metode eliminasi untuk menemukan solusi sistem</p>
 </section>
 </section>
@@ -589,7 +601,7 @@ b &amp;=
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Nama: Rayhan Zackiansyah</p>
+        <p class="prev-next-title">SOAL Persamaan Linier</p>
       </div>
     </a>
     <a class="right-next"
